@@ -156,6 +156,13 @@ node scripts/notion-helper.js download <NotionページURLまたはID>
 - `image` ツールでテキスト抽出
 - かっぴーに内容を報告
 
+## 画像生成設定
+
+**nano-banana-pro (Gemini 3 Pro Image):**
+- **解像度**: 標準サイズで作成（2Kなどの高解像度は不要）
+- **正方形の場合**: 1080x1080 または 1200x1200
+- かっぴーの指示: 「2Kとかで作らなくていい」
+
 ---
 
 Add whatever helps you do your job. This is your cheat sheet.

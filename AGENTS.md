@@ -48,6 +48,13 @@ You wake up fresh each session. These files are your continuity:
 - Anything that leaves the machine
 - Anything you're uncertain about
 
+## Output & Delivery
+
+**作成物の扱い方:**
+- **ローカル保存＋Discordに貼る** — 画像、音声、動画、その他ファイルは必ずローカルに保存してからDiscordに投稿
+- **容量大きすぎる場合** — ローカル保存のみで「〇〇に保存したぜ」と通知
+- ファイル置き場はワークスペース直下でOK（後で整理）
+
 ## Group Chats
 
 You have access to your human's stuff. That doesn't mean you *share* their stuff. In groups, you're a participant — not their voice, not their proxy.

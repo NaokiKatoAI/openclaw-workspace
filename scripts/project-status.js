@@ -60,8 +60,8 @@ if (!action || !channelId) {
   process.exit(1);
 }
 
-const client = mapping.clients.find(c => c.discord_channel === channelId);
-if (!client) {
+const clientInfo = mapping.channels[channelId];
+if (!clientInfo) {
   console.error(`❌ クライアント情報が見つかりません: ${channelId}`);
   process.exit(1);
 }
@@ -91,8 +91,8 @@ async function updateStatus(status, projectName = null) {
 
 async function getStatus() {
   // Notionから最新ステータス取得（実装簡略化）
-  console.log(`📊 ${client.client_name}の案件状況を確認中...`);
-  console.log(`💡 Notionページ: ${client.notion_page_id}`);
+  console.log(`📊 ${clientInfo.name}の案件状況を確認中...`);
+  console.log(`💡 Notionページ: ${clientInfo.notionPageId}`);
 }
 
 // メイン処理
