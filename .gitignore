@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# System files
+.DS_Store
+.last-history-save
+
+# Downloads & temp files
+downloads/
+test-logs/
+*.zip
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# Secrets
+**/notion-secrets.json

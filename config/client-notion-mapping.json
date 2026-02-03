@@ -1,0 +1,41 @@
+{
+  "database": {
+    "id": "250fa1d8-cd3d-461c-a9c2-854b2e99804d",
+    "url": "https://www.notion.so/kappyenjoy/250fa1d8cd3d461ca9c2854b2e99804d"
+  },
+  "channels": {
+    "1464976900853334151": {
+      "name": "フロムアイズ",
+      "notionPageId": "2fa2fcf8-c7b3-809b-8328-dd6ea1145356"
+    },
+    "1465131303405092975": {
+      "name": "Bico・GHI",
+      "notionPageId": "2fa2fcf8-c7b3-8032-a066-c4dd00dfbad4"
+    },
+    "1467508496999125012": {
+      "name": "AWC（大塚製薬）",
+      "notionPageId": "2fa2fcf8-c7b3-80e6-9d3b-ff19b6a1afc2"
+    },
+    "1467518880988794890": {
+      "name": "バルクオム",
+      "notionPageId": "2fa2fcf8-c7b3-80ca-8609-c430b7b98446"
+    },
+    "1467518907165180110": {
+      "name": "ハイマート",
+      "notionPageId": "2fa2fcf8-c7b3-80ee-9bce-fb79aa396800"
+    },
+    "1467518957069275432": {
+      "name": "箱根ガラスの森リゾート",
+      "notionPageId": "2fa2fcf8-c7b3-8098-b442-ff4acde236c1"
+    },
+    "1468111261316415602": {
+      "name": "SB C&S",
+      "notionPageId": "2fc2fcf8-c7b3-816f-b412-d9bd57278351"
+    },
+    "1397895052965187587": {
+      "name": "main-channel",
+      "notionPageId": "250fa1d8-cd3d-461c-a9c2-854b2e99804d",
+      "note": "全般用（データベース形式）"
+    }
+  }
+}
