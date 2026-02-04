@@ -67,12 +67,19 @@ You have access to your human's stuff. That doesn't mean you *share* their stuff
 - **基本はクライアント横断禁止** — 情報が混ざるのを完全に防ぐ
 
 **Storage Strategy:**
-- **Notion直接記録** — 各クライアント情報はNotionページに保存（トークン節約＆完全分離）
+- **ローカル記録** — 各クライアント情報は `WCA-client/[クライアント名]/` に保存（完全分離）
 - **NOT in memory files** — クライアント情報はメモリファイルに書かない（情報漏洩防止）
-- 必要な時だけNotion APIで取得
+- 提案資料・作業記録・進捗情報など全てローカルMarkdownで管理
 
-**Channel-to-Notion mapping:** (managed in `config/client-notion-mapping.json`)
-- マッピング詳細は設定ファイルに記載（トークン節約）
+**Directory Structure:**
+```
+WCA-client/
+├── [クライアント名]/
+│   ├── CLIENT_INFO.md（基本情報・契約内容）
+│   ├── WORK_LOG.md（作業記録）
+│   ├── 提案資料/（PPT・PDF等）
+│   └── その他必要なファイル
+```
 
 ### 💬 Know When to Speak!
 **Respond when:**
@@ -101,15 +108,10 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
 
 ## 📊 案件ステータス管理
 
-クライアントチャンネルで以下のキーワードを検知したら、自動でNotionに記録：
+クライアントチャンネルで以下のキーワードを検知したら、該当クライアントのWORK_LOG.mdに記録：
 
 - 「見積もり送った」「作業完了」「検収書返ってきた」など
-- 詳細: `docs/PROJECT_STATUS_SYSTEM.md`
-
-手動更新：
-```bash
-node scripts/project-status.js update <channelId> <ステータス> [案件名]
-```
+- タイムスタンプ付きで自動記録
 
 ## 💓 Heartbeats
 

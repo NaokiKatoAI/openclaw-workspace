@@ -125,36 +125,19 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 **重要：** `/new` 後もこのルールを忘れるな！
 
-## Notion連携
+## クライアント情報管理（2026-02-04変更）
 
-**APIキー保存場所:** `~/.openclaw/notion-secrets.json`
+**保存先:** `WCA-client/[クライアント名]/`
 
-**ヘルパースクリプト:** `scripts/notion-helper.js`
+**構成:**
+- `CLIENT_INFO.md` - 基本情報、契約内容、請求先
+- `WORK_LOG.md` - 作業記録、進捗状況
+- `提案資料/` - PPT、PDF等の提案ドキュメント
 
-**使い方:**
-```bash
-# ページ情報取得
-node scripts/notion-helper.js page <NotionページURLまたはID>
-
-# ページのテキスト取得
-node scripts/notion-helper.js text <NotionページURLまたはID>
-
-# ファイル一覧取得
-node scripts/notion-helper.js files <NotionページURLまたはID>
-
-# ファイルダウンロード（downloads/フォルダに保存）
-node scripts/notion-helper.js download <NotionページURLまたはID>
-```
-
-**例:**
-- かっぴーが「このNotionページ見て: https://notion.so/abc123」と言ったら
-- `node scripts/notion-helper.js text <URL>` でページ内容取得
-- `node scripts/notion-helper.js download <URL>` でファイルダウンロード
-
-**🤖 自動OCR:**
-- Notionからファイルダウンロード後、**画像ファイルは自動的にOCRで読み取る**
-- `image` ツールでテキスト抽出
-- かっぴーに内容を報告
+**ルール:**
+- クライアント情報は該当ディレクトリのみに保存
+- MEMORY.mdには書かない（情報漏洩防止）
+- クライアント横断禁止（情報混在を防ぐ）
 
 ## 画像生成設定
 
