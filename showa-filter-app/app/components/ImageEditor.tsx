@@ -33,9 +33,10 @@ interface ImageEditorProps {
   credits: number;
   plan: 'free' | 'light' | 'pro';
   onCreditsUpdate: (userId: string) => Promise<void>;
+  onOpenAuthModal: () => void;
 }
 
-export default function ImageEditor({ user, credits, plan, onCreditsUpdate }: ImageEditorProps) {
+export default function ImageEditor({ user, credits, plan, onCreditsUpdate, onOpenAuthModal }: ImageEditorProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -400,6 +401,12 @@ export default function ImageEditor({ user, credits, plan, onCreditsUpdate }: Im
   const handleDownload = async () => {
     if (!originalImage || !previewUrl) {
       alert('先にフィルターを適用してください');
+      return;
+    }
+
+    // ログインチェック（ダウンロード時のみ必要）
+    if (!user) {
+      onOpenAuthModal();
       return;
     }
 

@@ -41,7 +41,7 @@ export default function Home() {
         setUser(null);
         setCredits(0);
         setPlan('free');
-        setIsAuthModalOpen(true);
+        // ログインポップアップは出さない（使う時だけ出す）
       }
     });
 
@@ -73,9 +73,8 @@ export default function Home() {
     if (session?.user) {
       setUser(session.user);
       await loadUserSubscription(session.user.id);
-    } else {
-      setIsAuthModalOpen(true);
     }
+    // ログインしてなくてもポップアップは出さない（使う時だけ出す）
 
     setIsLoading(false);
   };
@@ -543,6 +542,7 @@ export default function Home() {
             credits={credits}
             plan={plan}
             onCreditsUpdate={loadUserSubscription}
+            onOpenAuthModal={() => setIsAuthModalOpen(true)}
           />
         )}
 
