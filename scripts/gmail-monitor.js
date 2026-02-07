@@ -12,14 +12,17 @@ const fs = require('fs').promises;
 const path = require('path');
 const { google } = require('googleapis');
 const { authenticate } = require('@google-cloud/local-auth');
+const { exec } = require('child_process');
+const { promisify } = require('util');
+const execAsync = promisify(exec);
 
 // 設定
 const CREDENTIALS_PATH = path.join(process.env.HOME, '.openclaw', 'gmail-credentials.json');
 const TOKEN_PATH = path.join(process.env.HOME, '.openclaw', 'gmail-token.json');
 const SCOPES = ['https://www.googleapis.com/auth/gmail.modify'];
 
-// Discord Webhook URL（環境変数から取得）
-const WEBHOOK_URL = process.env.GMAIL_DISCORD_WEBHOOK || 'https://discord.com/api/webhooks/1468154343789428827/Tr3kepGXLPvuRWJZ2mVOgg20o0apI1WRJq_8f8ALv3WOC_0g64zStDkSGEmAk9xAnAOY';
+// Discord通知先チャンネルID
+const DISCORD_CHANNEL_ID = process.env.GMAIL_DISCORD_CHANNEL || '1468591889627484396';
 
 /**
  * 保存されたトークンを読み込む
@@ -109,42 +112,81 @@ async function getUnreadMessages(auth) {
 }
 
 /**
+ * 学習データを読み込む
+ */
+async function loadFilters() {
+  const filterPath = path.join(process.env.HOME, '.openclaw', 'gmail-filters.json');
+  try {
+    const content = await fs.readFile(filterPath, 'utf8');
+    return JSON.parse(content);
+  } catch {
+    // フィルターファイルがない場合はデフォルト
+    return { unimportant: [], important: [], keywords: { unimportant: [], important: [] }, special_rules: {} };
+  }
+}
+
+/**
  * メールを分類
  */
-function classifyMessages(messages) {
+async function classifyMessages(messages) {
+  const filters = await loadFilters();
   const important = [];
   const toArchive = [];
-
-  const importantKeywords = [
-    '予約', '美容室', '歯医者', '配送', '到着', '発送', '請求', '支払', '期限',
-    '会議', 'ミーティング', 'セミナー', 'イベント', '締切', '納品', '検収'
-  ];
-
-  const archivePatterns = [
-    /newsletter|メルマガ|配信停止/i,
-    /no-?reply@|noreply@/i,
-    /amazon.*おすすめ|楽天.*セール/i,
-    /twitter|facebook|instagram|notification/i,
-    /広告|プロモーション|キャンペーン/i,
-  ];
 
   for (const msg of messages) {
     const from = msg.headers.find(h => h.name === 'From')?.value || '';
     const subject = msg.headers.find(h => h.name === 'Subject')?.value || '';
     const text = `${from} ${subject} ${msg.snippet}`;
 
-    // 重要メール判定
-    const isImportant = importantKeywords.some(keyword => text.includes(keyword));
-    
-    // 既読候補判定
-    const shouldArchive = archivePatterns.some(pattern => pattern.test(text));
+    let isImportant = false;
+    let isUnimportant = false;
+
+    // 美容室チェック（特別ルール）
+    if (filters.special_rules?.beauty_salon?.important) {
+      const beautyKeywords = filters.special_rules.beauty_salon.keywords || [];
+      if (beautyKeywords.some(kw => text.includes(kw))) {
+        isImportant = true;
+      }
+    }
+
+    // Amazonチェック（特別ルール）
+    if (from.includes('amazon.co.jp')) {
+      const amazonImportantKeywords = filters.keywords.important || [];
+      if (amazonImportantKeywords.some(kw => subject.includes(kw))) {
+        isImportant = true;
+      } else {
+        // Amazon新刊案内やセールは重要じゃない
+        isUnimportant = true;
+      }
+    }
+
+    // 重要キーワードチェック
+    if (!isImportant && filters.keywords.important) {
+      if (filters.keywords.important.some(kw => text.includes(kw))) {
+        isImportant = true;
+      }
+    }
+
+    // 重要じゃないドメイン/送信者チェック
+    if (!isImportant && filters.unimportant) {
+      for (const rule of filters.unimportant) {
+        if (from.includes(rule.from) || from.includes(rule.domain)) {
+          isUnimportant = true;
+          break;
+        }
+      }
+    }
+
+    // 重要じゃないキーワードチェック
+    if (!isImportant && !isUnimportant && filters.keywords.unimportant) {
+      if (filters.keywords.unimportant.some(kw => text.includes(kw))) {
+        isUnimportant = true;
+      }
+    }
 
     if (isImportant) {
       important.push({ ...msg, from, subject });
-    } else if (shouldArchive) {
-      toArchive.push({ ...msg, from, subject });
     } else {
-      // どちらでもない場合は既読候補に
       toArchive.push({ ...msg, from, subject });
     }
   }
@@ -161,61 +203,96 @@ async function sendToDiscord(important, toArchive) {
 
   let content = `📬 **メールチェック結果（${timeStr}）**\n\n`;
 
+  const totalCount = important.length + toArchive.length;
+
   if (important.length > 0) {
-    content += `🔴 **重要：${important.length}件**\n`;
+    content += `🔴 **重要：${important.length}件**\n\n`;
     important.slice(0, 5).forEach(msg => {
       const shortSubject = msg.subject.length > 50 ? msg.subject.substring(0, 50) + '...' : msg.subject;
       const shortFrom = msg.from.length > 30 ? msg.from.substring(0, 30) + '...' : msg.from;
-      content += `- ${shortSubject}（${shortFrom}）\n`;
+      const snippet = msg.snippet.length > 80 ? msg.snippet.substring(0, 80) + '...' : msg.snippet;
+      content += `**📧 ${shortSubject}**\n`;
+      content += `　From: ${shortFrom}\n`;
+      content += `　内容: ${snippet}\n\n`;
     });
     if (important.length > 5) {
-      content += `- 他${important.length - 5}件\n`;
+      content += `他${important.length - 5}件の重要メールあり\n\n`;
     }
-    content += '\n';
   }
 
   if (toArchive.length > 0) {
     content += `🟢 **既読候補：${toArchive.length}件**\n`;
     toArchive.slice(0, 5).forEach(msg => {
       const shortSubject = msg.subject.length > 40 ? msg.subject.substring(0, 40) + '...' : msg.subject;
+      const shortFrom = msg.from.length > 30 ? msg.from.substring(0, 30) + '...' : msg.from;
       content += `- ${shortSubject}\n`;
+      content += `  From: ${shortFrom}\n`;
     });
     if (toArchive.length > 5) {
       content += `- 他${toArchive.length - 5}件\n`;
     }
-    content += '\n👍このリアクション押したら既読化するぜ\n';
+  }
+
+  // 最後に明確なリアクション指示（未読メールがある場合のみ）
+  if (totalCount > 0) {
+    content += `\n─────────────────────\n`;
+    content += `✅ **確認したら👍このメッセージにリアクションしろ！**\n`;
+    content += `（全${totalCount}件を既読化する）\n`;
   }
 
   if (important.length === 0 && toArchive.length === 0) {
     content = `📬 **メールチェック結果（${timeStr}）**\n\n✅ 未読メールなし`;
   }
 
-  const payload = {
-    content: content,
-    username: 'Gmail Monitor',
-  };
+  // OpenClaw message ツールを使って送信
+  // メッセージをファイルに一時保存（改行・特殊文字対策）
+  const tmpFile = path.join(process.env.HOME, '.openclaw', 'gmail-message-tmp.txt');
+  await fs.writeFile(tmpFile, content);
 
-  const response = await fetch(WEBHOOK_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Discord通知失敗: ${response.status}`);
+  let messageId = null;
+  try {
+    const { stdout } = await execAsync(
+      `openclaw message send --channel discord --target "channel:${DISCORD_CHANNEL_ID}" --message "$(cat ${tmpFile})"`
+    );
+    console.log('Discord通知成功');
+    
+    // メッセージIDを抽出（stdoutからパース）
+    // OpenClawの出力形式: "Message sent: {id: '1234567890'}" などを想定
+    const idMatch = stdout.match(/id[:\s]+['"]?(\d+)['"]?/i);
+    if (idMatch) {
+      messageId = idMatch[1];
+      console.log('メッセージID:', messageId);
+    }
+  } catch (err) {
+    console.error('Discord通知失敗:', err.message);
   }
-
-  const result = await response.json();
   
-  // メッセージIDを保存（リアクション検知用）
-  if (toArchive.length > 0) {
+  // 一時ファイル削除
+  await fs.unlink(tmpFile).catch(() => {});
+
+  // メッセージIDとGmail IDのマッピングを保存（重要メール＋既読候補すべて）
+  if (messageId && (important.length > 0 || toArchive.length > 0)) {
     const stateFile = path.join(process.env.HOME, '.openclaw', 'gmail-state.json');
+    const allMessageIds = [
+      ...important.map(m => m.id),
+      ...toArchive.map(m => m.id)
+    ];
     const state = {
-      lastMessageId: result.id,
-      toArchiveIds: toArchive.map(m => m.id),
+      lastMessageId: messageId,
+      toArchiveIds: allMessageIds,
       timestamp: Date.now(),
     };
     await fs.writeFile(stateFile, JSON.stringify(state, null, 2));
+    console.log('状態保存完了');
+    
+    // 30分後にリアクションチェックを予約
+    try {
+      const cronCmd = `openclaw cron add --name "Gmail👍チェック（30分後）" --at "30m" --session main --system-event "Gmail👍チェック: node ~/Documents/claw-projects/my-repo/scripts/gmail-reaction-check.js を実行しろ" --delete-after-run`;
+      await execAsync(cronCmd);
+      console.log('30分後リアクションチェック予約完了');
+    } catch (err) {
+      console.error('リアクションチェック予約失敗:', err.message);
+    }
   }
 
   console.log('Discord通知送信完了');
@@ -256,7 +333,7 @@ async function main() {
       return;
     }
 
-    const { important, toArchive } = classifyMessages(messages);
+    const { important, toArchive } = await classifyMessages(messages);
     console.log(`重要: ${important.length}件、既読候補: ${toArchive.length}件`);
 
     await sendToDiscord(important, toArchive);

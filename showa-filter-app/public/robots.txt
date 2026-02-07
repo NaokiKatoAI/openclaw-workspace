@@ -1,0 +1,12 @@
+# ロボット許可設定
+User-agent: *
+Allow: /
+
+# サイトマップの場所
+Sitemap: https://showa-filter-app.vercel.app/sitemap.xml
+
+# クロール不要なパス（APIエンドポイント等）
+Disallow: /api/
+
+# クロール速度の調整（秒）
+Crawl-delay: 1
