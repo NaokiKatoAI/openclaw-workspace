@@ -428,37 +428,37 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col items-center gap-6 mt-8 md:mt-12 md:scale-110 origin-top">
-              <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 w-full">
-                <div className="flex-1">
-                  <div className="bg-[#3E2723] p-3" style={{boxShadow: '5px 5px 0 #1a1a1a'}}>
+              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 w-full">
+                <div className="w-full md:flex-1">
+                  <div className="bg-[#3E2723] p-2 md:p-3" style={{boxShadow: '5px 5px 0 #1a1a1a'}}>
                     <div className="aspect-[4/3] overflow-hidden relative">
                       <Image 
                         src="/samples/before.jpg" 
                         alt="現代の写真 - 香港の街並み（加工前）" 
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 90vw, 50vw"
                       />
                     </div>
                   </div>
                   <p className="mt-3 font-bold text-[#3E2723] text-center text-lg bg-[#FFD700] inline-block px-4 py-1 mx-auto" style={{display: 'table', margin: '12px auto 0'}}>現代</p>
                 </div>
 
-                <div className="flex flex-col items-center px-4">
+                <div className="flex flex-col items-center px-4 py-2 md:py-0">
                   <div className="text-4xl animate-pulse">⏰</div>
-                  <div className="w-0.5 h-8 bg-[#8B7355] my-2"></div>
+                  <div className="w-0.5 h-6 md:h-8 bg-[#8B7355] my-1 md:my-2"></div>
                   <p className="text-sm text-[#5D4037] font-bold writing-vertical" style={{writingMode: 'vertical-rl'}}>時を超える</p>
                 </div>
 
-                <div className="flex-1">
-                  <div className="bg-[#8B4513] p-3" style={{boxShadow: '5px 5px 0 #3E2723'}}>
+                <div className="w-full md:flex-1">
+                  <div className="bg-[#8B4513] p-2 md:p-3" style={{boxShadow: '5px 5px 0 #3E2723'}}>
                     <div className="aspect-[4/3] overflow-hidden relative">
                       <Image 
                         src="/samples/after.jpg" 
                         alt="昭和風に変換された写真 - レトロな香港の街並み（加工後）" 
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 90vw, 50vw"
                       />
                     </div>
                   </div>
