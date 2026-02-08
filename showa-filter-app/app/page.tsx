@@ -101,6 +101,14 @@ export default function Home() {
   };
 
   const handlePlanPurchase = async (selectedPlan: 'light' | 'pro') => {
+    // GA4イベント送信
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', `plan_click_${selectedPlan}`, {
+        event_category: 'purchase',
+        event_label: selectedPlan,
+      });
+    }
+
     if (!user) {
       setIsAuthModalOpen(true);
       return;
@@ -419,7 +427,12 @@ export default function Home() {
               </h2>
               <p className="text-lg md:text-2xl text-[#5D4037] mb-6 md:mb-8">ワンクリックで、時を超える。</p>
               <button
-                onClick={() => setCurrentPage('editor')}
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'cta_click', { event_category: 'engagement', event_label: 'start_now' });
+                  }
+                  setCurrentPage('editor');
+                }}
                 className="retro-btn px-12 py-5 text-xl font-bold text-[#FFFEF0] bg-[#8B4513] rounded-none border-4 border-[#5D4037]"
                 style={{boxShadow: '6px 6px 0 #3E2723'}}
               >
