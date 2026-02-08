@@ -155,7 +155,7 @@ export default function Home() {
     <>
       <AuthModal
         isOpen={isAuthModalOpen}
-        onClose={() => {}}
+        onClose={() => setIsAuthModalOpen(false)}
         onSuccess={() => {
           setIsAuthModalOpen(false);
           checkAuth();
