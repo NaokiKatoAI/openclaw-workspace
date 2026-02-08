@@ -405,7 +405,7 @@ export default function Home() {
       </nav>
 
       {/* メインコンテンツ */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-12 pt-20 md:pt-12">
+      <main className="flex-1 overflow-y-auto px-4 md:px-12 pt-20 md:pt-12 pb-0">
         {/* ホーム */}
         {currentPage === 'home' && (
           <div className="max-w-4xl mx-auto animate-fadeIn">
@@ -1167,7 +1167,7 @@ export default function Home() {
           </div>
         )}
         {/* フッター */}
-        <footer className="bg-[#5D4037] text-[#FFFEF0] py-8 mt-12 -mx-4 md:-mx-12 -mb-4 md:-mb-12">
+        <footer className="bg-[#5D4037] text-[#FFFEF0] py-8 mt-12 -mx-4 md:-mx-12">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
               <div>
