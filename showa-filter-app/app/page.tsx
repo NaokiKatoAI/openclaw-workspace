@@ -1184,14 +1184,16 @@ export default function Home() {
                 </button>
               </div>
             ) : (
-              <p className="text-xl text-[#5D4037] mb-6">ログインしてください。</p>
-              <button
-                onClick={() => setIsAuthModalOpen(true)}
-                className="px-8 py-4 text-lg font-bold text-[#FFFEF0] bg-[#8B4513] rounded-lg border-4 border-[#5D4037] hover:bg-[#A0522D] transition-all"
-                style={{boxShadow: '4px 4px 0 #3E2723'}}
-              >
-                🔑 ログイン / 新規登録
-              </button>
+              <>
+                <p className="text-xl text-[#5D4037] mb-6">ログインしてください。</p>
+                <button
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="px-8 py-4 text-lg font-bold text-[#FFFEF0] bg-[#8B4513] rounded-lg border-4 border-[#5D4037] hover:bg-[#A0522D] transition-all"
+                  style={{boxShadow: '4px 4px 0 #3E2723'}}
+                >
+                  🔑 ログイン / 新規登録
+                </button>
+              </>
             )}
           </div>
         )}
