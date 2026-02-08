@@ -162,10 +162,10 @@ export default function Home() {
         `
       }}>
       {/* モバイルヘッダー */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-[#8B4513] px-3 py-2 z-50 border-b-4 border-[#5D4037]">
+      <div className="fixed top-0 left-0 right-0 bg-[#8B4513] px-4 py-3 z-50 border-b-4 border-[#5D4037]">
         <div className="flex items-center justify-between w-full">
           <button onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="active:scale-95 active:opacity-70 transition-all duration-100">
-            <Image src="/logo.png" alt="昭和Pictures" width={120} height={36} className="h-9 w-auto" priority />
+            <Image src="/logo.png" alt="昭和Pictures" width={140} height={42} className="h-10 w-auto" priority />
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -178,7 +178,7 @@ export default function Home() {
 
       {/* モバイルメニュー */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed top-14 left-0 right-0 bg-[#E8D5C4] z-40 border-b-4 border-[#8B7355] shadow-lg max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+        <div className="fixed top-16 left-0 right-0 bg-[#E8D5C4] z-40 border-b-4 border-[#8B7355] shadow-lg max-h-[calc(100vh-3.5rem)] overflow-y-auto">
           <div className="p-2 space-y-1">
             {user && (
               <div className="bg-[#D2691E]/10 p-2 rounded-lg mb-2 text-center">
@@ -257,155 +257,9 @@ export default function Home() {
         </div>
       )}
 
-      {/* レフトナビ - 昭和の喫茶店風（モバイルでは非表示） */}
-      <nav className="hidden md:flex w-72 bg-[#FFFEF0] p-8 pb-24 shadow-2xl flex-col border-r-4 border-[#8B7355] overflow-y-auto">
-        <div className="text-center mb-8">
-          <Image 
-            src="/logo.png" 
-            alt="昭和Pictures" 
-            width={200}
-            height={60}
-            className="w-full max-w-[200px] mx-auto cursor-pointer hover:scale-105 transition-transform"
-            onClick={() => setCurrentPage('home')}
-            priority
-          />
-        </div>
-
-        {/* 現在のプラン表示 */}
-        {user && (
-          <div className="mb-6 p-4 bg-[#D2691E]/10 rounded-lg border-2 border-[#D2691E]">
-            <p className="text-xs text-[#8B7355] mb-2 text-center">現在のプラン</p>
-            <p className="text-2xl font-bold text-[#D2691E] text-center mb-3">
-              {plan === 'free' && '🆓 無料プラン'}
-              {plan === 'light' && '⭐ ライトプラン'}
-              {plan === 'pro' && '👑 プロプラン'}
-            </p>
-            <div className="border-t border-[#8B7355]/30 pt-3">
-              <p className="text-xs text-[#8B7355] text-center">残りクレジット</p>
-              <p className="text-2xl font-bold text-[#5D4037] text-center">
-                {plan === 'pro' ? '無制限' : `${credits}枚`}
-              </p>
-            </div>
-          </div>
-        )}
-
-        <ul className="space-y-2">
-          <li>
-            <button
-              onClick={() => setCurrentPage('home')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'home'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">🏠</span> ホーム
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setCurrentPage('editor')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'editor'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">✨</span> 使ってみる
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setCurrentPage('howto')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'howto'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">📖</span> 使い方
-            </button>
-          </li>
-
-          <div className="h-px bg-[#8B7355]/30 my-6"></div>
-
-          <li>
-            <button
-              onClick={() => setCurrentPage('pricing')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'pricing'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">💳</span> プラン
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setCurrentPage('faq')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'faq'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">❓</span> FAQ
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setCurrentPage('privacy')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'privacy'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">🔒</span> プライバシー
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setCurrentPage('legal')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'legal'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">📜</span> 特商法表記
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setCurrentPage('terms')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'terms'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">📋</span> 利用規約
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setCurrentPage('account')}
-              className={`w-full text-left px-5 py-4 rounded-lg transition-all border-2 ${
-                currentPage === 'account'
-                  ? 'bg-[#D2691E]/10 border-[#D2691E] font-semibold'
-                  : 'border-transparent hover:bg-[#8B7355]/10 hover:border-[#D2691E]'
-              } text-[#5D4037]`}
-            >
-              <span className="mr-2">👤</span> アカウント
-            </button>
-          </li>
-        </ul>
-      </nav>
 
       {/* メインコンテンツ */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-12 pt-20 md:pt-12">
+      <main className="flex-1 overflow-y-auto p-4 md:p-12 pt-16">
         {/* ホーム */}
         {currentPage === 'home' && (
           <div className="max-w-4xl mx-auto animate-fadeIn">
