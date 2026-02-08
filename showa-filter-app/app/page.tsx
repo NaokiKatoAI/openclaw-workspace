@@ -519,6 +519,23 @@ export default function Home() {
               <p className="mt-1">📧 ご意見・ご感想はゲストブックまで（嘘）</p>
             </div>
 
+            {/* お知らせ */}
+            <div className="mt-12 bg-[#FFFEF0] rounded-xl p-6 md:p-8 max-w-2xl mx-auto border-2 border-[#D2691E]">
+              <h3 className="text-xl md:text-2xl text-[#D2691E] mb-4 font-semibold flex items-center gap-2">
+                📰 お知らせ
+              </h3>
+              <ul className="space-y-3 text-[#5D4037]">
+                <li className="flex gap-3 items-start">
+                  <span className="text-sm text-[#8B7355] whitespace-nowrap font-mono">2026/02/07</span>
+                  <span>🎉 昭和Pictures サイトオープンしました！</span>
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="text-sm text-[#8B7355] whitespace-nowrap font-mono">2026/02/07</span>
+                  <span>🎞️ 時代フィルター（昭和・大正・明治）を追加しました！</span>
+                </li>
+              </ul>
+            </div>
+
             <div className="mt-12 bg-white/50 rounded-xl p-8 max-w-2xl mx-auto">
               <h3 className="text-xl md:text-2xl text-[#8B7355] mb-4 font-semibold">昭和Picturesとは？</h3>
               <p className="text-[#5D4037] leading-relaxed">
