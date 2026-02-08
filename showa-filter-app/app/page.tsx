@@ -1166,79 +1166,78 @@ export default function Home() {
             )}
           </div>
         )}
+        {/* フッター */}
+        <footer className="bg-[#5D4037] text-[#FFFEF0] py-8 mt-12 -mx-4 md:-mx-12 -mb-4 md:-mb-12">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+              <div>
+                <h3 className="font-bold mb-3 text-[#FFD700]">サービス</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <button onClick={() => setCurrentPage('editor')} className="hover:text-[#FFD700] transition-colors">
+                      写真を変換
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setCurrentPage('pricing')} className="hover:text-[#FFD700] transition-colors">
+                      料金プラン
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setCurrentPage('howto')} className="hover:text-[#FFD700] transition-colors">
+                      使い方
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold mb-3 text-[#FFD700]">サポート</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <button onClick={() => setCurrentPage('faq')} className="hover:text-[#FFD700] transition-colors">
+                      よくある質問
+                    </button>
+                  </li>
+                  <li>
+                    <a href="mailto:showa.pictures@gmail.com" className="hover:text-[#FFD700] transition-colors">
+                      お問い合わせ
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold mb-3 text-[#FFD700]">法的情報</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <button onClick={() => setCurrentPage('privacy')} className="hover:text-[#FFD700] transition-colors">
+                      プライバシーポリシー
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setCurrentPage('terms')} className="hover:text-[#FFD700] transition-colors">
+                      利用規約
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold mb-3 text-[#FFD700]">SNS</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a href="https://twitter.com/showapictures" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFD700] transition-colors">
+                      Twitter / X
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="border-t border-[#8B7355] pt-6 text-center text-sm">
+              <p>&copy; 2026 昭和Pictures. All rights reserved.</p>
+              <p className="mt-2 text-xs text-[#D2B48C]">最新の写真が、最古の思い出に。</p>
+            </div>
+          </div>
+        </footer>
       </main>
-
-      {/* フッター */}
-      <footer className="bg-[#5D4037] text-[#FFFEF0] py-8 mt-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-            <div>
-              <h3 className="font-bold mb-3 text-[#FFD700]">サービス</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <button onClick={() => setCurrentPage('editor')} className="hover:text-[#FFD700] transition-colors">
-                    写真を変換
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setCurrentPage('pricing')} className="hover:text-[#FFD700] transition-colors">
-                    料金プラン
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setCurrentPage('howto')} className="hover:text-[#FFD700] transition-colors">
-                    使い方
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-3 text-[#FFD700]">サポート</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <button onClick={() => setCurrentPage('faq')} className="hover:text-[#FFD700] transition-colors">
-                    よくある質問
-                  </button>
-                </li>
-                <li>
-                  <a href="mailto:showa.pictures@gmail.com" className="hover:text-[#FFD700] transition-colors">
-                    お問い合わせ
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-3 text-[#FFD700]">法的情報</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <button onClick={() => setCurrentPage('privacy')} className="hover:text-[#FFD700] transition-colors">
-                    プライバシーポリシー
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setCurrentPage('terms')} className="hover:text-[#FFD700] transition-colors">
-                    利用規約
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-3 text-[#FFD700]">SNS</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="https://twitter.com/showapictures" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFD700] transition-colors">
-                    Twitter / X
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-[#8B7355] pt-6 text-center text-sm">
-            <p>&copy; 2026 昭和Pictures. All rights reserved.</p>
-            <p className="mt-2 text-xs text-[#D2B48C]">最新の写真が、最古の思い出に。</p>
-          </div>
-        </div>
-      </footer>
     </div>
     </>
   );
