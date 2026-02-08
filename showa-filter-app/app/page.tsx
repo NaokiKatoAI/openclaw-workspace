@@ -503,14 +503,6 @@ export default function Home() {
                 <span className="text-[#FFFF00]">直リンクはご遠慮ください</span>
               </div>
 
-              {/* NEW！ */}
-              <div className="flex items-center gap-1">
-                <span className="text-2xl">👉</span>
-                <span className="blink text-[#FF0000] font-bold text-xl" style={{textShadow: '1px 1px 0 #FFFF00'}}>
-                  ✨NEW!✨
-                </span>
-                <span className="text-sm text-[#5D4037]">時代フィルター追加！</span>
-              </div>
             </div>
 
             {/* フッター風 */}
@@ -527,11 +519,11 @@ export default function Home() {
               <ul className="space-y-3 text-[#5D4037]">
                 <li className="flex gap-3 items-start">
                   <span className="text-sm text-[#8B7355] whitespace-nowrap font-mono">2026/02/07</span>
-                  <span>🎉 昭和Pictures サイトオープンしました！</span>
+                  <span>🎉 昭和Pictures サイトオープンしました！ <span className="blink text-[#FF0000] font-bold" style={{textShadow: '1px 1px 0 #FFFF00'}}>✨NEW!✨</span></span>
                 </li>
                 <li className="flex gap-3 items-start">
                   <span className="text-sm text-[#8B7355] whitespace-nowrap font-mono">2026/02/07</span>
-                  <span>🎞️ 時代フィルター（昭和・大正・明治）を追加しました！</span>
+                  <span>🎞️ 時代フィルター（昭和・大正・明治）を追加しました！ <span className="blink text-[#FF0000] font-bold" style={{textShadow: '1px 1px 0 #FFFF00'}}>✨NEW!✨</span></span>
                 </li>
               </ul>
             </div>
