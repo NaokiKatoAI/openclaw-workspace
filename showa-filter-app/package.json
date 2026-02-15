@@ -9,8 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google-analytics/data": "^5.2.1",
     "@stripe/stripe-js": "^8.7.0",
     "@supabase/supabase-js": "^2.95.3",
+    "googleapis": "^171.4.0",
     "heic-convert": "^2.1.0",
     "heic2any": "^0.0.4",
     "next": "16.1.6",

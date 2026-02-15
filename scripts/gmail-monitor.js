@@ -216,7 +216,7 @@ async function sendToDiscord(important, toArchive) {
       content += `　内容: ${snippet}\n\n`;
     });
     if (important.length > 5) {
-      content += `他${important.length - 5}件の重要メールあり\n\n`;
+      content += `他${important.length - 5}件の重要メールがございます\n\n`;
     }
   }
 
@@ -233,15 +233,8 @@ async function sendToDiscord(important, toArchive) {
     }
   }
 
-  // 最後に明確なリアクション指示（未読メールがある場合のみ）
-  if (totalCount > 0) {
-    content += `\n─────────────────────\n`;
-    content += `✅ **確認したら👍このメッセージにリアクションしろ！**\n`;
-    content += `（全${totalCount}件を既読化する）\n`;
-  }
-
   if (important.length === 0 && toArchive.length === 0) {
-    content = `📬 **メールチェック結果（${timeStr}）**\n\n✅ 未読メールなし`;
+    content = `📬 **メールチェック結果（${timeStr}）**\n\n✅ 未読メールはございません`;
   }
 
   // OpenClaw message ツールを使って送信
@@ -251,18 +244,30 @@ async function sendToDiscord(important, toArchive) {
 
   let messageId = null;
   try {
-    const { stdout } = await execAsync(
+    // メール一覧を送信
+    await execAsync(
       `openclaw message send --channel discord --target "channel:${DISCORD_CHANNEL_ID}" --message "$(cat ${tmpFile})"`
     );
-    console.log('Discord通知成功');
-    
-    // メッセージIDを抽出（stdoutからパース）
-    // OpenClawの出力形式: "Message sent: {id: '1234567890'}" などを想定
-    const idMatch = stdout.match(/id[:\s]+['"]?(\d+)['"]?/i);
-    if (idMatch) {
-      messageId = idMatch[1];
-      console.log('メッセージID:', messageId);
+    console.error('Discord通知成功（メール一覧）');
+
+    // リアクション指示を別メッセージで送信（未読メールがある場合のみ）
+    if (totalCount > 0) {
+      const confirmMsg = `✅ ご確認いただけましたら👍リアクションをお願いいたします（全${totalCount}件を既読化いたします）`;
+      const confirmTmpFile = path.join(process.env.HOME, '.openclaw', 'gmail-confirm-tmp.txt');
+      await fs.writeFile(confirmTmpFile, confirmMsg);
+      const { stdout: confirmStdout } = await execAsync(
+        `openclaw message send --channel discord --target "channel:${DISCORD_CHANNEL_ID}" --message "$(cat ${confirmTmpFile})"`
+      );
+      await fs.unlink(confirmTmpFile).catch(() => {});
+      // リアクション指示メッセージのIDを取得（こっちに👍をもらう）
+      const confirmIdMatch = confirmStdout.match(/id[:\s]+['"]?(\d+)['"]?/i);
+      if (confirmIdMatch) {
+        messageId = confirmIdMatch[1];
+        console.error('リアクション指示メッセージID:', messageId);
+      }
     }
+    console.error('Discord通知成功');
+    
   } catch (err) {
     console.error('Discord通知失敗:', err.message);
   }
@@ -283,19 +288,19 @@ async function sendToDiscord(important, toArchive) {
       timestamp: Date.now(),
     };
     await fs.writeFile(stateFile, JSON.stringify(state, null, 2));
-    console.log('状態保存完了');
+    console.error('状態保存完了');
     
     // 30分後にリアクションチェックを予約
     try {
       const cronCmd = `openclaw cron add --name "Gmail👍チェック（30分後）" --at "30m" --session main --system-event "Gmail👍チェック: node ~/Documents/claw-projects/my-repo/scripts/gmail-reaction-check.js を実行しろ" --delete-after-run`;
       await execAsync(cronCmd);
-      console.log('30分後リアクションチェック予約完了');
+      console.error('30分後リアクションチェック予約完了');
     } catch (err) {
       console.error('リアクションチェック予約失敗:', err.message);
     }
   }
 
-  console.log('Discord通知送信完了');
+  console.error('Discord通知送信完了');
 }
 
 /**
@@ -312,7 +317,7 @@ async function markAsRead(auth, messageIds) {
     },
   });
 
-  console.log(`${messageIds.length}件のメールを既読化しました`);
+  console.error(`${messageIds.length}件のメールを既読化しました`);
 }
 
 /**
@@ -320,13 +325,13 @@ async function markAsRead(auth, messageIds) {
  */
 async function main() {
   try {
-    console.log('Gmail Monitor 起動...');
+    console.error('Gmail Monitor 起動...');
     
     const auth = await authorize();
-    console.log('認証成功');
+    console.error('認証成功');
 
     const messages = await getUnreadMessages(auth);
-    console.log(`未読メール: ${messages.length}件`);
+    console.error(`未読メール: ${messages.length}件`);
 
     if (messages.length === 0) {
       await sendToDiscord([], []);
@@ -334,7 +339,7 @@ async function main() {
     }
 
     const { important, toArchive } = await classifyMessages(messages);
-    console.log(`重要: ${important.length}件、既読候補: ${toArchive.length}件`);
+    console.error(`重要: ${important.length}件、既読候補: ${toArchive.length}件`);
 
     await sendToDiscord(important, toArchive);
 
@@ -354,7 +359,7 @@ if (process.argv[2] === 'mark-read') {
       const auth = await authorize();
       await markAsRead(auth, state.toArchiveIds);
       
-      console.log('既読化完了');
+      console.error('既読化完了');
     } catch (error) {
       console.error('既読化エラー:', error);
       process.exit(1);
