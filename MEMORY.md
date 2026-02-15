@@ -1,6 +1,6 @@
 # MEMORY.md - 長期記憶
 
-## 加藤様
+## 加藤さん
 - ECコンサルタント（楽天モール + 自社EC）、エイチームグループ
 - マネージャー職（チーム: 松田、岸、吉田）
 - 選択肢はA, B, C形式 / プログラミング知識ゼロ → 画面操作レベルで説明
@@ -34,7 +34,7 @@
 - TODOアプリ、ec-consultantスキル、video-creatorスキル
 - りんちゃんLP (`rin-lp/`)、りんちゃんRPG (`rin-rpg/` Phase1-2完了)
 - YouTube字幕取得 (`scripts/youtube-subtitle.sh`)
-- Diablo2R ラダー13 (2/21 9:00開始、加藤様は夜参戦)
+- Diablo2R ラダー13 (2/21 9:00開始、加藤さんは夜参戦)
 - 昭和映画フィルターアプリ (`showa-filter-app/` 全機能完了、Supabase+Stripe待ち)
 
 ## ファイル納品
@@ -46,7 +46,7 @@
 - memoryFlush(100k), contextPruning(5m), historyLimit=0
 - `sudo pmset disablesleep 1`（再起動で戻る）
 - Cron監視LaunchAgent、重要cronは `wakeMode: "now"`
-- 加藤様メッセージに👀で受信確認
+- 加藤さんメッセージに👀で受信確認
 
 ---
 *最終更新: 2026-02-14*

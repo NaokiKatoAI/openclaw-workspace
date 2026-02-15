@@ -1,9 +1,4 @@
-# USER.md - About Your Human
-
-*Learn about the person you're helping. Update this as you go.*
-
-- **Name:** かっぴー
-- **What to call them:** 加藤様
+- **What to call them:** 加藤さん
 - **Pronouns:** *(optional)*
 - **Timezone:** Asia/Tokyo (JST)
 - **Notes:** 選択肢を出すときはA, B, C形式で
@@ -36,7 +31,3 @@
   - HTML、Liquid、Java、JavaScript、その他コード全般がわからない
   - 技術的な説明は**画面操作レベルで超具体的に**説明する
   - 「どこを差し替える」ではなく「どのボタンを押す」で伝える
-
----
-
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
