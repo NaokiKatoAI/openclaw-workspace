@@ -77,6 +77,13 @@
 - Drive フォルダID: `1BISfRfSTizEShR-ocLgHVEhF5wuEUblf`
 - アップロード: `node scripts/gdrive-upload.js <ファイルパス>`
 
+## GitHub同期（バックアップ）
+
+- **タイミング**: 重要設定（USER/AGENTS/MEMORY/TOOLS/SOUL）の変更時、またはクライアント作業ログ更新時。
+- **ルール**: 変更完了後、即座にコミット＆プッシュを実行する。
+- **エラー対応**: `git add .` でサブモジュール等のエラーが出た場合は、対象を除外して必要なファイルのみを確実にプッシュする。
+- **確認**: 加藤様から「保存されてる？」と聞かれる前に同期を完了させておくこと。
+
 ## Windows音声入力アプリ
 
 - `VK_CONTROL(0x11)`のみ使用。keyboard/pynput禁止。動いてるキー入力コードは触るな
