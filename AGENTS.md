@@ -26,7 +26,10 @@
 - [ ] 全体ルール系ファイル（AGENTS.md / TOOLS.md / SOUL.md / USER.md / HEARTBEAT.md）更新後 → **全アクティブセッションに `sessions_send` で `/new` を自動送信**して反映
 
 ### config・システム操作の禁止事項
-- [ ] **`openclaw doctor --fix` は原則禁止** — config（groupPolicy等）がリセットされるリスクがあるため
+- [ ] **`openclaw doctor --fix` / `--repair` は絶対に実行しない** — configがリセットされるリスクがあるため
+- [ ] **`openclaw configure` は絶対に実行しない**
+- [ ] **`openclaw config set` 前は必ず加藤さんに確認**
+- [ ] **`gateway.mode: local` / `groupPolicy: open` を死守する**
 - [ ] **大幅なconfig変更前は必ず加藤さんに確認** — 大量のチャンネル追加やモデル優先順位の変更など
 - [ ] **無反応時の初動** — `sessions.json` の削除とゲートウェイ再起動を検討する
 - [ ] **無限ループ・機械的連投の禁止** — エラーやタイムアウト時に焦って同じリクエストを繰り返さない。一度実行して反応がない場合は、まず状況を確認するか、加藤さんに相談すること。人間らしい落ち着いた挙動を心がけ、無駄なトークン消費を防ぐ。
