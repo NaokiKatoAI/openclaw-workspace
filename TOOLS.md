@@ -25,6 +25,11 @@
 - コーディング全て、開発タスク全般
 - 上記Sonnet条件に該当しないもの全て
 
+### Kimi K2.5（中量級コンサルタント）
+- 競合分析、LP構成案作成、EC戦略立案に使用。
+- **セキュリティ設定**: OpenRouter経由かつプロバイダーをUSホスト（Fireworks等）に限定。
+- **切替宣言**: 「【モデル】Kimi 2.5 (US-Host)」と宣言。
+
 ### その他
 - **フォールバック**: Gemini Flash
 - **画像生成**: Gemini Pro 3.0（全ての画像作成指示）
@@ -69,6 +74,18 @@
 
 - **確信があっても検索してから答える**（特にAPI制限・接続仕様・プラットフォームルール系）
 - **「アプデ確認」と言われたらcron結果を報告するな** — その場で `npm view` / `gh api` を実行して最新を確認
+
+## 手動アップデート・クリーン再起動手順
+
+トラブル時や手動更新を行う際の標準プロトコル。並列実行禁止、各ステップの完了を待つこと。
+
+1. `openclaw gateway stop`
+2. `npm install -g openclaw@latest`（最大5分）
+3. `openclaw gateway install --force`
+4. `rm -f ~/.openclaw/agents/main/sessions/sessions.json`
+5. `rm -f ~/.openclaw/agents/main/delivery-recovery.json`
+6. `openclaw gateway start`
+7. `openclaw channels status --probe` で動作確認
 
 ## ファイル納品
 
