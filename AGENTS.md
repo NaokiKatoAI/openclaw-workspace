@@ -47,7 +47,7 @@
 - `openclaw doctor --fix` / `openclaw doctor --repair` （configリセットリスク）
 - `openclaw configure` （設定を壊す可能性）
 - `openclaw config set` は**必ず加藤さんに確認してから実行**
-- `gateway.mode: local` と `channels.discord.groupPolicy: open` を**絶対に変更しない**
+- `gateway.mode: local` と `channels.discord.groupPolicy: allowlist` を**維持する**（セキュリティのため）
 
 ---
 
