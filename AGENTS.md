@@ -72,7 +72,7 @@
 ### ファイル編集
 - [ ] **書く前に既存内容を読め** — 重複・矛盾がないか確認
 - [ ] 同じ情報は1箇所だけ（AGENTS.md / TOOLS.md / MEMORY.md に分散させない）
-- [ ] 全体ルール系ファイル（AGENTS.md / TOOLS.md / USER.md / HEARTBEAT.md）更新後 → **全アクティブセッションに `sessions_send` で `/new` を自動送信**して反映
+- [ ] 全体ルール系ファイル（AGENTS.md / TOOLS.md / USER.md / HEARTBEAT.md）更新後 → **加藤さんに確認してから**全アクティブセッションに `/new` を送信
 
 ### config・システム操作
 - [ ] **大幅なconfig変更前は必ず加藤さんに確認** — 大量のチャンネル追加やモデル優先順位の変更など
