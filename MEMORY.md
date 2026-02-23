@@ -38,17 +38,27 @@
 - TikTok案件（2026-02-14獲得→ニューレックス）、Bico・GHI、AWC、バルクオム、ハイマート
 - 売上定義: 「〇月の売上」= その月稼働分（翌月請求）
 
+## 健康管理
+- **健康診断（2026/2/16受診）**: 詳細は `memory/health-check-2026-02-16.md`
+  - 要内科受診: LDL 188（目標119以下）、総コレステロール 258、中性脂肪 195
+  - 緑内障: 治療中（主治医あり）
+  - BMI 25.8、腹囲 92cm
+  - 血糖・肝機能・腎機能は正常
+- **コレステロール改善取り組み開始（2026/2/16〜）**
+  - お菓子・ジュース断ち、昼食軽量化
+  - 体重記録: 2026/2/23時点 73.6kg（健診時74.8kg）
+  - 協力内容: 体重記録・食事アドバイス・リマインダー
+
+## OpenClaw運用（追記）
+- **Anthropic OAuthポリシー変更（2026/2/20）**: ClaudeサブスクのOAuthをサードパーティ（OpenClaw等）で使用禁止と明文化。数日様子見後、OpenAIへの切り替えを検討中
+- **アップデート注意**: `2026.2.22-2` はパッケージング不具合あり。`2026.2.22`（サフィックスなし）が正式安定版
+
 ## 作成物
 - TODOアプリ、ec-consultantスキル、video-creatorスキル
 - りんちゃんLP (`rin-lp/`)、りんちゃんRPG (`rin-rpg/` Phase1-2完了)
 - YouTube字幕取得 (`scripts/youtube-subtitle.sh`)
 - Diablo2R ラダー13 (2/21 9:00開始、加藤さんは夜参戦)
 - 昭和映画フィルターアプリ (`showa-filter-app/` 全機能完了、Supabase+Stripe待ち)
-
-## ファイル納品
-- ２５MB以下→Discord直接添付、２５MB超→Google Drive
-- Drive フォルダID: `1BISfRfSTizEShR-ocLgHVEhF5wuEUblf`
-- アップロード: `node scripts/gdrive-upload.js <ファイルパス>`
 
 ## Discord ライフサイクルリアクション（2026-02-22設定済み）
 - 絵文字順: 👀→⏳→🤔→🔥→👍(24h常駐)。config.patchで管理。
@@ -82,4 +92,4 @@
   6. `openclaw gateway start`
 
 ---
-*最終更新: 2026-02-23（コスト最適化・冗長削除）*
+*最終更新: 2026-02-23（健康診断記録・コレステロール改善・OpenClaw OAuth問題追記）*

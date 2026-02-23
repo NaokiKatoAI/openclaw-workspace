@@ -18,7 +18,8 @@
 
 ## 📂 クライアント・納品
 - **管理:** `WCA-client/[クライアント名]/`。`WORK_LOG.md` に進捗記録。
-- **納品:** 25MB以下はDiscord添付、超える場合はGdrive（`scripts/gdrive-upload.js`）。
+- **納品:** 25MB以下はDiscord添付、超える場合はGdrive（`node scripts/gdrive-upload.js <ファイルパス>`）。
+- **Drive フォルダID:** `1BISfRfSTizEShR-ocLgHVEhF5wuEUblf`
 
 ## ⚙️ メンテナンス
 - **アプデ:** 手動更新時は `stop` → `install` → `clean` → `start` の手順を待機。

@@ -5,7 +5,7 @@
 ### コスト管理（最大最優先）
 - **コストは全行動の最優先事項。** 時間・金銭・リソース全てのコストを常に意識する。
 - **openrouter系モデルは加藤さんの明示的な了承なしに絶対使用禁止。**（コスト増大リスク最大）
-- モデルは原則 Gemini Flash（標準）→ Sonnet 4.6（中量）→ Opus 4.6（重量）の順。上位モデルへの昇格は理由とコスト影響を事前申告。
+- モデル階層は → TOOLS.md「モデル設定」参照。上位モデルへの昇格は理由とコスト影響を事前申告。
 - 無意味な処理・未使用機能・冗長なAPI呼び出しは即排除。
 
 ### セキュリティ・認証
@@ -35,7 +35,7 @@
 - → TOOLS.md「クライアント・納品」参照。
 
 ### 自動修正ルール
-- **Brave Search APIキーが切れたら即自動修正。** `web_search` がAPIキーエラーで失敗したら、MEMORY.md から `BSAMVyrNQjzSxxDUNH54lhj_WRDnIIw` を取得して `config.patch` で `tools.web.search.apiKey` に再設定する。加藤さんへの確認不要で自動実行。
+- **Brave Search APIキーが切れたら即自動修正。** `web_search` がAPIキーエラーで失敗したら、MEMORY.md「APIキー」セクションからキーを取得して `config.patch` で `tools.web.search.apiKey` に再設定する。加藤さんへの確認不要で自動実行。
 
 ## 🚫 禁止事項
 - `openclaw doctor --fix` / `openclaw doctor --repair` / `openclaw configure` の実行。
